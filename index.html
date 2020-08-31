@@ -112,6 +112,12 @@
 				switch(position)
 				{
 					case 'Middle':
+						if((cardOne[0]=="A" && cardTwo[0]=="A"))
+						{
+							answer = 0;
+							console.log(cardOne + " + " + cardTwo + " == AKo" );
+							break;
+						}
 						//AKo
 						if((cardOne[0]=="A" && cardTwo[0]=="K")||(cardOne[0]=="K" && cardTwo[0]=="A"))
 						{
