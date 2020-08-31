@@ -104,6 +104,7 @@
 				document.getElementById('fold').style.visibility = "visible";
 				document.getElementById('raise').style.visibility = "visible";
 				document.getElementById('3bet').style.visibility = "visible";
+				document.getElementById('call').style.visibility = "visible";
 				firstGuess = true;
 		}
 		function checkAnswer(input)
@@ -304,15 +305,18 @@
 					{
 						document.getElementById('fold').style.visibility = "hidden";
 						document.getElementById('rase').style.visibility = "hidden";
+						document.getElementById('call').style.visibility = "hidden";
 					}else if(answer == 1)
 					{
 						document.getElementById('fold').style.visibility = "hidden";
 						document.getElementById('3bet').style.visibility = "hidden";
+						document.getElementById('call').style.visibility = "hidden";
 						
 					}else
 					{
 						document.getElementById('3bet').style.visibility = "hidden";
 						document.getElementById('raise').style.visibility = "hidden";
+						document.getElementById('call').style.visibility = "hidden";
 					}
 					//document.getElementById('next').style.display = "block";
 				}
