@@ -118,6 +118,12 @@
 							console.log(cardOne + " + " + cardTwo + " == AKo" );
 							break;
 						}
+						if((cardOne[0]=="K" && cardTwo[0]=="K"))
+						{
+							answer = 0;
+							console.log(cardOne + " + " + cardTwo + " == AKo" );
+							break;
+						}
 						//AKo
 						if((cardOne[0]=="A" && cardTwo[0]=="K")||(cardOne[0]=="K" && cardTwo[0]=="A"))
 						{
@@ -191,6 +197,93 @@
 						}					
 						console.log(cardOne + " + " + cardTwo +" == Fold" );
 						break;
+					case "Button":
+						if((cardOne[0]=="A" && cardTwo[0]=="A"))
+						{
+							answer = 0;
+							console.log(cardOne + " + " + cardTwo + " == AKo" );
+							break;
+						}
+						if((cardOne[0]=="K" && cardTwo[0]=="K"))
+						{
+							answer = 0;
+							console.log(cardOne + " + " + cardTwo + " == AKo" );
+							break;
+						}
+						//AKo
+						if((cardOne[0]=="A" && cardTwo[0]=="K")||(cardOne[0]=="K" && cardTwo[0]=="A"))
+						{
+							answer = 0;
+							console.log(cardOne + " + " + cardTwo + " == AKo" );
+							break;
+						}
+						//AQo
+						if((cardOne[0]=="A" && cardTwo[0]=="Q")||(cardOne[0]=="K" && cardTwo[0]=="Q"))
+						{
+							answer = 0;
+							console.log(cardOne + " + " + cardTwo +" == AKo" );
+							break;
+						}
+						//T9s
+						if(suited && ((cardOne[0]=="T" && cardTwo[0]=="9")||(cardOne[0]=="9" && cardTwo[0]=="T")))
+						{
+							answer = 0;
+							break;
+						}
+						//78s
+						if(suited && ((cardOne[0]=="7" && cardTwo[0]=="8")||(cardOne[0]=="8" && cardTwo[0]=="7")))
+						{
+							answer = 0;
+							break;
+						}
+						
+						//A5s-A2s
+						if(suited && (cardOne[0]=="A" || cardTwo[0]=="A") &&(value[cardOne[0]]<=value["5"] || value[cardTwo[0]]<=value["5"]))
+						{
+							
+							answer = 0;
+							break;
+						}
+						//22+
+						if(cardOne[0]==cardTwo[0])
+						{
+							answer = 1;
+							console.log(cardOne[0]+" "+cardTwo[0]);
+							console.log(cardOne + " + " + cardTwo +" == 22+" );
+							break;
+						}
+						//A2s+
+						if(suited && (cardOne[0]=="A" || cardTwo[0]=="A"))
+						{
+							
+							answer = 1;
+							console.log(cardOne + " + " + cardTwo +" == A2s+" );
+							break;
+						}
+						//KTs+
+						if(suited && ((value[cardOne[0]]>=value["K"] && value[cardTwo[0]]>=value["T"]) || (value[cardOne[0]]>=value["T"] && value[cardTwo[0]]>=value["K"])))
+						{
+							answer = 1;
+							console.log(cardOne + " + " + cardTwo +" == KTs+" );
+							break;
+						}
+						//QTs
+						if(suited && ((value[cardOne[0]]>=value["Q"] && value[cardTwo[0]]>=value["T"]) || (value[cardOne[0]]>=value["T"] && value[cardTwo[0]]>=value["Q"])))
+						{
+							answer = 1;
+							console.log(cardOne + " + " + cardTwo+ " == QTs+" );
+							break;
+						}
+						//JTs-76s
+						if(suited && (value[cardOne[0]]-1==value[cardTwo[0]] || (value[cardOne[0]]==value[cardTwo[0]]-1)))
+						{
+							answer = 1;
+							console.log(cardOne + " + " + cardTwo +" == JTs-76s" );
+							break;
+						}					
+						console.log(cardOne + " + " + cardTwo +" == Fold" );
+						break;
+					
 				}
 				
 				if(input==answer)
