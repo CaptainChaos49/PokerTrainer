@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Bare - Start Bootstrap Template</title>
+  <title>Poker Trainer</title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -56,6 +56,7 @@
 		<p id="position"></p>
 		<button onclick="checkAnswer(0)" type="button" class="btn btn-primary text-center" id="3bet" >3-Bet</button>
 		<button onclick="checkAnswer(1)" type="button" class="btn btn-primary text-center" id="raise" >Raise</button>
+		<button onclick="checkAnswer(1)" type="button" class="btn btn-primary text-center" id="call" >Call</button>
 		<button onclick="checkAnswer(2)" type="button" class="btn btn-primary text-center" id="fold" >Fold</button>
 		<p id="answer"></p>
 		</br>
@@ -78,7 +79,7 @@
 		
 		var initialRun = true;
 		var cards = ["TC", "TD", "TH", "TS", "2C", "2D", "2H", "2S", "3C", "3D", "3H", "3S", "4C", "4D", "4H", "4S", "5C", "5D", "5H", "5S", "6C", "6D", "6H", "6S", "7C", "7D", "7H", "7S", "8C", "8D", "8H", "8S", "9C", "9D", "9H", "9S", "AC", "AD", "AH", "AS", "JC", "JD", "JH", "JS", "KC", "KD", "KH", "KS", "QC", "QD", "QH", "QS"];
-		var positions = ["UTG", "Middle", "Cutoff", "Button", "BB", "SB"];
+		var positions = ["UTG", "Middle", "Cutoff", "Button with tight raise", "BB", "SB"];
 		var value = {"A":14, "K":13, "Q":12, "J":11, "T":10, "9":9, "8":8, "7":7, "6":6, "5":5, "4":4, "3":3, "2":2};
 		position = "Middle";
 		var cardOne = 0;
@@ -111,6 +112,8 @@
 			var suited = isSuited(cardOne, cardTwo);
 				switch(position)
 				{
+					case "Button with tight raise":
+					
 					case 'Middle':
 						if((cardOne[0]=="A" && cardTwo[0]=="A"))
 						{
@@ -158,7 +161,7 @@
 							answer = 0;
 							break;
 						}
-						//22+
+						//22+https://captainchaos49.github.io/PokerTrainer/
 						if(cardOne[0]==cardTwo[0])
 						{
 							answer = 1;
