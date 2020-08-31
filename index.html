@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Bare - Start Bootstrap Template</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Poker Trainer</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <!--<li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>-->
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h1 class="mt-5">Pre-Flop Trainer</h1>
+		<img src="cards/AH.png" style="max-width:30%;max-height:30%;" id="card1">
+		<img src="cards/AH.png" style="max-width:30%;max-height:30%;" id="card2">
+		</br>
+		<p id="position"></p>
+		<button onclick="checkAnswer(0)" type="button" class="btn btn-primary text-center" id="3bet" >3-Bet</button>
+		<button onclick="checkAnswer(1)" type="button" class="btn btn-primary text-center" id="raise" >Raise</button>
+		<button onclick="checkAnswer(2)" type="button" class="btn btn-primary text-center" id="fold" >Fold</button>
+		<p id="answer"></p>
+		</br>
+		<div id="next">
+		<button onclick="generate()" type="button" class="btn btn-primary" id="n" >Next</button>
+		</div>
+		<!--TODO add table of hands-->
+        <!--<p class="lead">Complete with pre-defined file paths and responsive navigation!</p>
+        <ul class="list-unstyled">
+          <li>Bootstrap 4.5.0</li>
+          <li>jQuery 3.5.1</li>
+        </ul>-->
+      </div>
+	  
+	  
+    </div>
+	<div class="row">
+		<div class="col-lg-12 text-center">
+		<script>
+		
+		var initialRun = true;
+		var cards = ["TC", "TD", "TH", "TS", "2C", "2D", "2H", "2S", "3C", "3D", "3H", "3S", "4C", "4D", "4H", "4S", "5C", "5D", "5H", "5S", "6C", "6D", "6H", "6S", "7C", "7D", "7H", "7S", "8C", "8D", "8H", "8S", "9C", "9D", "9H", "9S", "AC", "AD", "AH", "AS", "JC", "JD", "JH", "JS", "KC", "KD", "KH", "KS", "QC", "QD", "QH", "QS"];
+		var positions = ["UTG", "Middle", "Cutoff", "Button", "BB", "SB"];
+		var value = {"A":14, "K":13, "Q":12, "J":11, "T":10, "9":9, "8":8, "7":7, "6":6, "5":5, "4":4, "3":3, "2":2};
+		position = "Middle";
+		var cardOne = 0;
+		var cardTwo = 0;
+		var firstGuess = true;
+		generate();
+		function generate()
+		{
+			var cards = ["TC", "TD", "TH", "TS", "2C", "2D", "2H", "2S", "3C", "3D", "3H", "3S", "4C", "4D", "4H", "4S", "5C", "5D", "5H", "5S", "6C", "6D", "6H", "6S", "7C", "7D", "7H", "7S", "8C", "8D", "8H", "8S", "9C", "9D", "9H", "9S", "AC", "AD", "AH", "AS", "JC", "JD", "JH", "JS", "KC", "KD", "KH", "KS", "QC", "QD", "QH", "QS"];
+		
+				position = 'Middle';//positions[Math.floor(Math.random() * 6)];
+				cardOne=cards[Math.floor(Math.random() * 51)];
+				do{
+					cardTwo = cards[Math.floor(Math.random() * 51)];
+				}while(cardOne==cardTwo)
+				//cardOne=cards[cardOne];
+				//cardTwo=cards[cardTwo];
+				document.getElementById('position').innerHTML = position;
+				document.getElementById('card1').src = "cards/"+cardOne+".png";
+				document.getElementById('card2').src = "cards/"+cardTwo+".png";
+				document.getElementById('next').style.display = "none";
+				document.getElementById('fold').style.visibility = "visible";
+				document.getElementById('raise').style.visibility = "visible";
+				document.getElementById('3bet').style.visibility = "visible";
+				firstGuess = true;
+		}
+		function checkAnswer(input)
+		{
+			var answer = 2;
+			var suited = isSuited(cardOne, cardTwo);
+				switch(position)
+				{
+					case 'Middle':
+						//AKo
+						if((cardOne[0]=="A" && cardTwo[0]=="K")||(cardOne[0]=="K" && cardTwo[0]=="A"))
+						{
+							answer = 0;
+							console.log(cardOne + " + " + cardTwo + " == AKo" );
+							break;
+						}
+						//AQo
+						if((cardOne[0]=="A" && cardTwo[0]=="Q")||(cardOne[0]=="K" && cardTwo[0]=="Q"))
+						{
+							answer = 0;
+							console.log(cardOne + " + " + cardTwo +" == AKo" );
+							break;
+						}
+						//T9s
+						if(suited && ((cardOne[0]=="T" && cardTwo[0]=="9")||(cardOne[0]=="9" && cardTwo[0]=="T")))
+						{
+							answer = 0;
+							break;
+						}
+						//78s
+						if(suited && ((cardOne[0]=="7" && cardTwo[0]=="8")||(cardOne[0]=="8" && cardTwo[0]=="7")))
+						{
+							answer = 0;
+							break;
+						}
+						
+						//A5s-A2s
+						if(suited && (cardOne[0]=="A" || cardTwo[0]=="A") &&(value[cardOne[0]]<=value["5"] || value[cardTwo[0]]<=value["5"]))
+						{
+							
+							answer = 0;
+							break;
+						}
+						//22+
+						if(cardOne[0]==cardTwo[0])
+						{
+							answer = 1;
+							console.log(cardOne[0]+" "+cardTwo[0]);
+							console.log(cardOne + " + " + cardTwo +" == 22+" );
+							break;
+						}
+						//A2s+
+						if(suited && (cardOne[0]=="A" || cardTwo[0]=="A"))
+						{
+							
+							answer = 1;
+							console.log(cardOne + " + " + cardTwo +" == A2s+" );
+							break;
+						}
+						//KTs+
+						if(suited && ((value[cardOne[0]]>=value["K"] && value[cardTwo[0]]>=value["T"]) || (value[cardOne[0]]>=value["T"] && value[cardTwo[0]]>=value["K"])))
+						{
+							answer = 1;
+							console.log(cardOne + " + " + cardTwo +" == KTs+" );
+							break;
+						}
+						//QTs
+						if(suited && ((value[cardOne[0]]>=value["Q"] && value[cardTwo[0]]>=value["T"]) || (value[cardOne[0]]>=value["T"] && value[cardTwo[0]]>=value["Q"])))
+						{
+							answer = 1;
+							console.log(cardOne + " + " + cardTwo+ " == QTs+" );
+							break;
+						}
+						//JTs-76s
+						if(suited && (value[cardOne[0]]-1==value[cardTwo[0]] || (value[cardOne[0]]==value[cardTwo[0]]-1)))
+						{
+							answer = 1;
+							console.log(cardOne + " + " + cardTwo +" == JTs-76s" );
+							break;
+						}					
+						console.log(cardOne + " + " + cardTwo +" == Fold" );
+						break;
+				}
+				
+				if(input==answer)
+				{
+					document.getElementById('answer').innerHTML = "Correct!";
+					//if(firstGuess)
+					//{
+						generate();
+					//}
+				}else
+				{
+					firstGuess = false;
+					document.getElementById('answer').innerHTML = "Wrong!";
+					if(answer==0)
+					{
+						document.getElementById('fold').style.visibility = "hidden";
+						document.getElementById('rase').style.visibility = "hidden";
+					}else if(answer == 1)
+					{
+						document.getElementById('fold').style.visibility = "hidden";
+						document.getElementById('3bet').style.visibility = "hidden";
+						
+					}else
+					{
+						document.getElementById('3bet').style.visibility = "hidden";
+						document.getElementById('raise').style.visibility = "hidden";
+					}
+					//document.getElementById('next').style.display = "block";
+				}
+	
+		}
+		//TODO add table of hands
+		function isSuited(a, b)
+		{
+			return (a[1]==b[1]);
+		}
+		</script>
+		</div>
+	</div>
+  </div>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.slim.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
